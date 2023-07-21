@@ -21,14 +21,15 @@ jobs:
         run: |
           git clone -b main https://github.com/ya0211/magisk-modules-repo-util.git util
           python -m pip install --upgrade pip
+          pip install python-dateutil
 
       - name: Create config.json
         run: |
-          python util/cli.py config --write repo_name="Your Magisk Repo" repo_url="https://you.github.io/magisk-modules-repo/" max_num=3 show_log=true log_dir="log"
+          python util/cli.py config --write repo_name="Magisk-Modules-Alt-Repo" repo_url="https://rushizgithub.github.io/mrepo/" max_num=3 show_log=true log_dir="log"
 
-      - name: Create track.json
-        run: |
-          python util/cli.py module --add id="zygisk_lsposed" update_to="https://lsposed.github.io/LSPosed/release/zygisk.json" license="GPL-3.0"
+#       - name: Create track.json
+#         run: |
+#           python util/cli.py module --add id="zygisk_lsposed" update_to="https://lsposed.github.io/LSPosed/release/zygisk.json" license="GPL-3.0"
 
       - name: Start Sync
         run: |
