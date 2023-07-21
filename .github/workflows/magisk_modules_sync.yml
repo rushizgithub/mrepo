@@ -21,7 +21,7 @@ jobs:
         run: |
           git clone -b main https://github.com/ya0211/magisk-modules-repo-util.git util
           python -m pip install --upgrade pip
-          pip install python-dateutil
+          pip install python-dateutil requests
 
       - name: Create config.json
         run: |
