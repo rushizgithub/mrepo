@@ -25,8 +25,8 @@ jobs:
 
       - name: Create config.json
         run: |
-          python util/cli.py github --user-name Magisk-Modules-Alt-Repo --api-token=${{ secrets.GITHUB_TOKEN }}
           python util/cli.py config --write repo_name="Magisk-Modules-Alt-Repo" repo_url="https://rushizgithub.github.io/mrepo/" max_num=3 show_log=true log_dir="log"
+          python util/cli.py github --user-name Magisk-Modules-Alt-Repo --api-token=${{ secrets.GITHUB_TOKEN }}
 
 #       - name: Create track.json
 #         run: |
