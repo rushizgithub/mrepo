@@ -21,18 +21,24 @@ jobs:
         run: |
           git clone -b main https://github.com/ya0211/magisk-modules-repo-util.git util
           python -m pip install --upgrade pip
-          pip install python-dateutil requests pygithub
+          pip install -r util/requirements.txt
 
 
       - name: Create config.json
         run: |
-          python3 util/cli.py config --write repo_name="Magisk-Modules-Alt-Repo" repo_url="https://rushizgithub.github.io/mrepo/" max_num=3 show_log=true log_dir="log"
+          python3 util/cli.py config --write repo_name="Magisk-Modules-Alt-Repo" repo_url="https://rushizgithub.github.io/mrepo/" max_num=3 show_log=false
           python3 util/cli.py github --user-name Magisk-Modules-Alt-Repo --api-token=${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Push
+        run: |
+          git add .
+          git commit -m "create config"
+          git push
 
 #       - name: Create track.json
 #         run: |
 #           python util/cli.py module --add id="zygisk_lsposed" update_to="https://lsposed.github.io/LSPosed/release/zygisk.json" license="GPL-3.0"
 
-      - name: Start Sync
-        run: |
-          python util/cli.py sync
+#       - name: Start Sync
+#         run: |
+#           python util/cli.py sync
