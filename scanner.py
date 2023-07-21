@@ -3,14 +3,20 @@ import re
 import sys
 
 def get_python_version(file_path):
-    with open(file_path, "r") as file:
-        content = file.read()
+    encodings = ["utf-8", "latin-1", "ascii"]
 
-        # Use regular expression to find the Python shebang or version comment
-        match = re.search(r"(#!/usr/bin/env\s+python(\d+(\.\d+)*)?|python(\d+(\.\d+)*)?)", content)
+    for encoding in encodings:
+        try:
+            with open(file_path, "r", encoding=encoding) as file:
+                content = file.read()
 
-        if match:
-            return match.group().replace("#!", "").strip()
+                # Use regular expression to find the Python shebang or version comment
+                match = re.search(r"(#!/usr/bin/env\s+python(\d+(\.\d+)*)?|python(\d+(\.\d+)*)?)", content)
+
+                if match:
+                    return match.group().replace("#!", "").strip()
+        except UnicodeDecodeError:
+            pass
 
     return None
 
