@@ -1,5 +1,4 @@
 import os
-import glob
 import argparse
 
 def process_file(file_path):
@@ -8,16 +7,14 @@ def process_file(file_path):
     print(f"Processing file: {file_path}")
 
 def process_folder(folder_path):
-    # Get a list of all files in the folder using glob
-    file_list = glob.glob(os.path.join(folder_path, "*"))
-
-    # Process each file in the folder
-    for file_path in file_list:
-        process_file(file_path)
+    for root, _, files in os.walk(folder_path):
+        for file_name in files:
+            file_path = os.path.join(root, file_name)
+            process_file(file_path)
 
 def main():
     # Create a command-line argument parser
-    parser = argparse.ArgumentParser(description="Process all files in a folder.")
+    parser = argparse.ArgumentParser(description="Process all files in a folder and its subfolders.")
     parser.add_argument("folder", help="Path to the folder containing files to process.")
 
     # Parse the command-line arguments
@@ -28,7 +25,7 @@ def main():
         print(f"Error: Folder '{args.folder}' does not exist.")
         return
 
-    # Process the folder and its files
+    # Process the folder and its subfolders
     process_folder(args.folder)
 
 if __name__ == "__main__":
